@@ -1,123 +1,103 @@
-{
- "cells": [
-  {
-   "cell_type": "code",
-   "execution_count": 82,
-   "id": "34ceb8c4-cf00-49b2-ae29-3421e9a42aba",
-   "metadata": {},
-   "outputs": [],
-   "source": [
-    "#import numpy as np\n",
-    "from abc import ABC, abstractmethod, abstractproperty\n",
-    "#import abс\n",
-    "\n",
-    "class Moving(ABC):\n",
-    "\n",
-    "    @abstractmethod\n",
-    "    def move(): pass\n",
-    "    \n",
-    "    @abstractproperty\n",
-    "    def Velocity(): pass\n",
-    "\n",
-    "class Rotate(ABC):\n",
-    "\n",
-    "    @abstractmethod\n",
-    "    def rotate(): pass\n",
-    "\n",
-    "    @abstractproperty\n",
-    "    def angVelocity(): pass\n",
-    "    \n",
-    "\n",
-    "class Movable_obj(Moving): \n",
-    "    def __init__(self, x, y, vx, vy):\n",
-    "# Устанавливаем начальные координаты и значения мгновенных скоростей        \n",
-    "        self.__x = x\n",
-    "        self.__y = y\n",
-    "        self.__vx = vx\n",
-    "        self.__vy = vy\n",
-    "    \n",
-    "    def get_location(self):\n",
-    "        if self.__x is None or self.__y is None:\n",
-    "            raise ValueError(\"Cannot read position\")\n",
-    "        return (self.__x, self.__y)\n",
-    "\n",
-    "    def set_location(self, x, y):\n",
-    "        if self.__x is None or self.__y is None:\n",
-    "            raise ValueError(\"Cannot set position\")\n",
-    "        self.__x = x\n",
-    "        self.__y = y\n",
-    "        \n",
-    "    def move(self):\n",
-    "        if self.__x is None or self.__y is None:\n",
-    "            raise ValueError(\"Cannot read position\")\n",
-    "        if self.__vx is None or self.__vy is None:\n",
-    "            raise ValueError(\"Cannot read velocity\")\n",
-    "        new_x = self.__x + self.__vx\n",
-    "        new_y = self.__y + self.__vy\n",
-    "        self.set_location(new_x, new_y)\n",
-    "\n",
-    "    @property\n",
-    "    def Velocity(self):\n",
-    "        return (self.__vx, self.__vy)\n",
-    "    \n",
-    "    @Velocity.setter\n",
-    "    def Velocity(self, new_velocity):\n",
-    "        if self.__vx is None or self.__vy is None:\n",
-    "            raise ValueError(\"Cannot read velocity\")\n",
-    "        self.__vx = new_velocity[0]\n",
-    "        self.__vy = new_velocity[1]\n",
-    "\n",
-    "class Rotatable_obj(Rotate):\n",
-    "    def __init__(self, alfa, angVelocity):\n",
-    "# Устанавливаем начальные значения угла и угловой скорости\n",
-    "        self.__alfa = alfa\n",
-    "        self.__angVelocity = angVelocity\n",
-    "\n",
-    "    def get_angle(self):\n",
-    "        return self.__alfa\n",
-    "\n",
-    "    def set_angle(self, new_alfa):\n",
-    "        if self.__alfa is None:\n",
-    "            raise ValueError(\"Cannot read angle\")\n",
-    "        self.__alfa = new_alfa\n",
-    "\n",
-    "    def rotate(self):\n",
-    "        if self.__alfa is None or self.__angVelocity is None:\n",
-    "            raise ValueError(\"Cannot read angle or angular velocity\")\n",
-    "        new_alfa = self.__alfa + self.__angVelocity\n",
-    "        self.set_angle(new_alfa)\n",
-    "\n",
-    "    @property\n",
-    "    def angVelocity(self):\n",
-    "        return self.__angVelocity\n",
-    "\n",
-    "    @angVelocity.setter\n",
-    "    def angVelocity(self, new_angVelocity):\n",
-    "        if self.__angVelocity is None:\n",
-    "            raise ValueError(\"Cannot read set angular velocity\")\n",
-    "        self.__angVelocity = new_angVelocity"
-   ]
-  }
- ],
- "metadata": {
-  "kernelspec": {
-   "display_name": "Python 3 (ipykernel)",
-   "language": "python",
-   "name": "python3"
-  },
-  "language_info": {
-   "codemirror_mode": {
-    "name": "ipython",
-    "version": 3
-   },
-   "file_extension": ".py",
-   "mimetype": "text/x-python",
-   "name": "python",
-   "nbconvert_exporter": "python",
-   "pygments_lexer": "ipython3",
-   "version": "3.12.4"
-  }
- },
- "nbformat": 4,
- "nbformat_minor": 5
-}
+#import numpy as np
+from abc import ABC, abstractmethod, abstractproperty
+#import abс
+
+class Moving(ABC):
+
+    @abstractmethod
+    def move(): pass
+    
+    @abstractproperty
+    def Velocity(): pass
+
+class Rotate(ABC):
+
+    @abstractmethod
+    def rotate(): pass
+
+    @abstractproperty
+    def angVelocity(): pass
+    
+
+class Movable_obj(Moving): 
+    def __init__(self, x, y, vx, vy):
+# Устанавливаем начальные координаты и значения мгновенных скоростей        
+        self.__x = x
+        self.__y = y
+        self.__vx = vx
+        self.__vy = vy
+    
+    def get_location(self):
+        if self.__x is None or self.__y is None:
+            raise ValueError("Cannot read position")
+        return (self.__x, self.__y)
+
+    def set_location(self, x, y):
+        if self.__x is None or self.__y is None:
+            raise ValueError("Cannot set position")
+        self.__x = x
+        self.__y = y
+        
+    def move(self):
+        if self.__x is None or self.__y is None:
+            raise ValueError("Cannot read position")
+        if self.__vx is None or self.__vy is None:
+            raise ValueError("Cannot read velocity")
+        new_x = self.__x + self.__vx
+        new_y = self.__y + self.__vy
+        self.set_location(new_x, new_y)
+
+    @property
+    def Velocity(self):
+        return (self.__vx, self.__vy)
+    
+    @Velocity.setter
+    def Velocity(self, new_velocity):
+        if self.__vx is None or self.__vy is None:
+            raise ValueError("Cannot read velocity")
+        self.__vx = new_velocity[0]
+        self.__vy = new_velocity[1]
+
+class Rotatable_obj(Rotate):
+    def __init__(self, alfa, angVelocity):
+# Устанавливаем начальные значения угла и угловой скорости
+        self.__alfa = alfa
+        self.__angVelocity = angVelocity
+
+    def get_angle(self):
+        return self.__alfa
+
+    def set_angle(self, new_alfa):
+        if self.__alfa is None:
+            raise ValueError("Cannot read angle")
+        self.__alfa = new_alfa
+
+    def rotate(self):
+        if self.__alfa is None or self.__angVelocity is None:
+            raise ValueError("Cannot read angle or angular velocity")
+        new_alfa = self.__alfa + self.__angVelocity
+        self.set_angle(new_alfa)
+
+    @property
+    def angVelocity(self):
+        return self.__angVelocity
+
+    @angVelocity.setter
+    def angVelocity(self, new_angVelocity):
+        if self.__angVelocity is None:
+            raise ValueError("Cannot read set angular velocity")
+        self.__angVelocity = new_angVelocity
+
+class Rotatable_adapter(Rotate):
+    def __init__(self, rotatable_obj):
+        r_obj = rotatable_obj
+
+    def get_angle(self):
+        return self.r_obj.get_angle()
+
+    def set_angle(self, new_alfa):
+        return self.r_obj.set_angle(new_alfa)
+
+    def rotate(self):
+        return self.r_obj.rotate()
+
