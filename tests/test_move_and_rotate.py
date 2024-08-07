@@ -1,8 +1,13 @@
 import unittest
+import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '../')))
+from movableObjects import Movable_obj 
+from movableObjects import Rotatable_obj
 
 class TestObjectMovement(unittest.TestCase):
     def test_movement_changes_position(self):
-        obj = Movable_obj(12, 5, -7, 3)
+        obj = Movable_obj(12, 5, -7, 3) 
         obj.move()
         self.assertEqual(obj.get_location(), (5, 8))
 
@@ -41,7 +46,7 @@ class TestObjectMovement(unittest.TestCase):
             obj.move()
         self.assertTrue("Cannot set position" in str(context.exception))
 
-class TestObjectRotate(unittest.Testcase):
+class TestObjectRotate(unittest.TestCase):
     def test_rotate_changes_angle(self):
         obj = Rotatable_obj(3, 12)
         obj.rotate()
